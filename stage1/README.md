@@ -160,52 +160,8 @@ Alternatively, use **PowerShell** or **CMD** where `//` works as-is.
 
 ---
 
-## Exercises
 
-### Exercise 1.1: Modify the greeting
-Change the greeting format to include the current date and your own custom message. Rebuild and run.
 
-### Exercise 1.2: Add a second binary
-Add another `cc_binary` target in the `BUILD` file for a new source file `main/goodbye.cc` that prints a farewell message. Build it with `bazel build //main:goodbye`.
 
-<details>
-<summary>Hint</summary>
-
-Create `main/goodbye.cc`:
-```cpp
-#include <iostream>
-
-int main() {
-    std::cout << "Goodbye, see you at Stage 2!" << std::endl;
-    return 0;
-}
-```
-
-Add to `main/BUILD`:
-```python
-cc_binary(
-    name = "goodbye",
-    srcs = ["goodbye.cc"],
-)
-```
-
-Build: `bazel build //main:goodbye`
-</details>
-
-### Exercise 1.3: Explore query commands
-Run `bazel query //main:all` to list all targets. What do you see?
-
----
-
-## Key Takeaways
-
-1. **`MODULE.bazel`** defines the workspace root and external dependencies
-2. **`BUILD`** files define targets (what to build) inside packages
-3. **`cc_binary`** creates executable programs from C++ source files
-4. **Labels** like `//main:hello-world` uniquely identify targets
-5. **Bazel caches** build results — rebuilds are incremental and fast
-6. First build is slow (downloads deps), subsequent builds are near-instant
-
----
 
 **Next**: [Stage 2 — Multiple Targets and Libraries →](../stage2/)
