@@ -234,42 +234,11 @@ build:release --strip=always
 
 ---
 
-## Exercises
 
-### Exercise 5.1: Add a platform-specific dependency
-Use `select()` to add different `defines` based on the target OS. For example, define `PLATFORM_WINDOWS` or `PLATFORM_LINUX` and use them in code.
-
-### Exercise 5.2: Create a `.bazelrc`
-Create a `.bazelrc` file with `dev` and `release` configs. Verify `bazel run --config=dev //main:app` and `bazel run --config=release //main:app` produce different output.
-
-### Exercise 5.3: Conditional source files
-Use `select()` in `srcs` to compile different source files based on the platform:
-```python
-srcs = select({
-    "//:is_linux": ["impl_linux.cc"],
-    "//:is_windows": ["impl_windows.cc"],
-    "//conditions:default": ["impl_generic.cc"],
-}),
-```
-
-### Exercise 5.4: Add a string flag
-Using `bazel_skylib`'s `string_flag`, create a `--//:log_level` flag that accepts `"debug"`, `"info"`, `"warning"`, `"error"` values. Use it to control the minimum log level.
 
 ---
 
-## Key Takeaways
-
-1. **`select()`** enables conditional build logic evaluated at build time
-2. **`config_setting`** defines named conditions based on build flags or platform constraints
-3. **Custom flags** (via `bazel_skylib`) let you parameterize builds
-4. **`-c dbg` vs `-c opt`** controls debug/release compilation mode
-5. **`defines`** in BUILD files pass preprocessor macros to C++ code
-6. **`.bazelrc`** stores default build configurations (profiles)
-7. `select()` can control **deps, srcs, copts, defines** — not just preprocessor macros
-
----
-
-## What You've Learned Across All 5 Stages
+## Summary of What You've Learned Across All 5 Stages
 
 | Stage | Key Skills |
 |-------|-----------|
