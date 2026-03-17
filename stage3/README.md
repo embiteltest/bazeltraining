@@ -202,29 +202,9 @@ Alternatively, use **PowerShell** or **CMD** where `//` works as-is.
 
 ---
 
-## Exercises
-
-### Exercise 3.1: Add a new package
-Create a `utils/` package with a `string-utils` library that has a function `std::string to_upper(const std::string& s)`. Use it in `hello-world` to print the greeting in uppercase.
-
-### Exercise 3.2: Visibility experiment
-1. Set `hello-time` visibility to `["//visibility:private"]` and try to build. Observe the error.
-2. Set it to `["//visibility:public"]` and try to build.
-3. Set it to `["//main:__pkg__"]` (correct minimal visibility).
-
-### Exercise 3.3: Add a sub-package
-Create `lib/format/BUILD` with a formatting library. Set the visibility of `hello-time` to `["//lib:__subpackages__"]` and verify that `lib/format` can use it but `main` cannot.
 
 ---
 
-## Key Takeaways
-
-1. **Packages** = directories with BUILD files — they organize your codebase
-2. **Visibility** controls which packages can depend on a target
-3. Use `//package:target` for **cross-package** dependencies
-4. Use `:target` for **same-package** dependencies
-5. Include paths use the **workspace-relative path** for cross-package headers
-6. Default visibility is **private** — explicitly grant access as needed
 7. Visibility is a **build-time enforcement** of your architecture
 
 ---
