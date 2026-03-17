@@ -105,19 +105,6 @@ curl -L https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk
 sudo chmod +x /usr/local/bin/bazel
 ```
 
-### macOS Setup
-
-```bash
-# 1. Install Xcode Command Line Tools (includes clang)
-xcode-select --install
-
-# 2. Install Bazelisk via Homebrew
-brew install bazelisk
-
-# 3. Verify
-clang++ --version
-```
-
 ---
 
 ## Verify Installation
@@ -281,19 +268,7 @@ bazel build --jobs=4 //main:hello-world
 
 ---
 
-## Troubleshooting
 
-### Common Issues
-
-| Problem | Solution |
-|---------|----------|
-| `ERROR: no such package 'main'` | Make sure you `cd` into the stage directory (e.g., `cd stage1`) before running `bazel build` |
-| `C++ compiler not found` | Install GCC/Clang/MSVC, verify with `g++ --version` or `clang++ --version` |
-| `MODULE.bazel not found` | You're not in the right directory. Each stage folder is its own workspace |
-| `permission denied` on Linux/macOS | Run `chmod +x /usr/local/bin/bazel` |
-| `BAZEL_SH` error on Windows | Set the env var: `set BAZEL_SH=C:\tools\msys64\usr\bin\bash.exe` |
-| Slow first build | Normal — Bazel downloads deps on first run. Subsequent builds use cache |
-| `rules_cc` not found | Ensure `MODULE.bazel` has `bazel_dep(name = "rules_cc", version = "0.1.0")` |
 
 ### Getting Help
 
