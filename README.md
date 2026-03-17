@@ -98,13 +98,9 @@ In the VS Installer:
 1. Click **Modify** on your Visual Studio 2022 installation
 2. Check **"Desktop development with C++"** workload
 3. Click **Modify** to install
+   <img width="1482" height="861" alt="image" src="https://github.com/user-attachments/assets/c771152a-ed11-4a6e-bb88-de660864359f" />
 
-If you don't have Visual Studio at all, install Build Tools via Chocolatey:
 
-```powershell
-# Run in PowerShell as Administrator:
-choco install visualstudio2022buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools" -y
-```
 
 ### Linux Setup
 
@@ -123,15 +119,6 @@ sudo chmod +x /usr/local/bin/bazel
 gcc --version  # Should show 11+
 ```
 
-```bash
-# ---- Fedora / RHEL ----
-
-sudo dnf install -y gcc-c++ git python3 zip unzip curl
-curl -L https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64 -o /usr/local/bin/bazel
-sudo chmod +x /usr/local/bin/bazel
-```
-
----
 
 ## Verify Installation
 
@@ -140,7 +127,7 @@ After setup, verify everything works:
 ```bash
 # Check Bazel version
 bazel --version
-# Expected: bazel 7.x.x (or higher)
+# Expected: bazel 8.x.x (or higher)
 
 # Check C++ compiler
 # Linux:
@@ -151,7 +138,7 @@ clang++ --version
 cl
 
 # Quick test - clone this repo and build Stage 1
-git clone <this-repo-url>
+git clone https://github.com/embiteltest/bazeltraining.git
 cd bazel-cpp-training/stage1
 bazel build //main:hello-world
 bazel run //main:hello-world
