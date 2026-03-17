@@ -200,32 +200,6 @@ The library is visible to both `main` (for the application) and `test` (for test
 
 ---
 
-## Exercises
-
-### Exercise 4.1: Add a failing test
-Add a test `TEST(CalculatorTest, FailingTest)` with `EXPECT_EQ(calc::add(1, 1), 3)`. Run it and observe the error output. Then fix it.
-
-### Exercise 4.2: Add tests for edge cases
-Add tests for:
-- `multiply` with `INT_MAX` and `INT_MIN`
-- `factorial(12)` (should be `479001600`)
-
-### Exercise 4.3: Create a string utility library with tests
-Create `lib/string-utils.h/.cc` with functions like `to_upper()`, `to_lower()`, `reverse()`. Add comprehensive tests in `test/string_utils_test.cc`.
-
-### Exercise 4.4: Test-driven development
-Write tests FIRST for a new function `calc::power(int base, int exp)`, then implement it to make the tests pass.
-
----
-
-## Key Takeaways
-
-1. **`cc_test`** creates test executables that integrate with `bazel test`
-2. **Google Test** is added as an external dep with just one line in `MODULE.bazel`
-3. **`@googletest//:gtest_main`** provides the test `main()` — just write `TEST()` macros
-4. **`bazel test //...`** runs all tests in the workspace
-5. Use **`--test_output=all`** to see detailed test output
-6. **Visibility** must include test packages for testing access
 7. Tests are **first-class citizens** in Bazel — cached, parallelized, and hermetic
 
 ---
