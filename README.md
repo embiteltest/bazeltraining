@@ -12,7 +12,6 @@ A progressive, hands-on training repository for learning **Bazel** build system 
 - [System Setup](#system-setup)
   - [Windows](#windows-setup)
   - [Linux (Ubuntu/Debian)](#linux-setup)
-  - [macOS](#macos-setup)
 - [Verify Installation](#verify-installation)
 - [Bazel Key Concepts](#bazel-key-concepts)
 - [Training Stages](#training-stages)
