@@ -143,28 +143,7 @@ Notice: Bazel only recompiles what changed! The binary is re-linked, but unchang
 
 ---
 
-## Deep Dive: srcs vs hdrs
 
-This is a critical distinction:
-
-```
-┌──────────────────────────────────────────────┐
-│  cc_library(name = "hello-greet")            │
-│                                              │
-│  hdrs = ["hello-greet.h"]   ← PUBLIC         │
-│  srcs = ["hello-greet.cc"]  ← PRIVATE        │
-│                                              │
-│  Dependents CAN #include "hello-greet.h"     │
-│  Dependents CANNOT #include "hello-greet.cc" │
-└──────────────────────────────────────────────┘
-```
-
-**Why this matters:**
-- **Encapsulation**: Implementation details stay hidden
-- **Build correctness**: Bazel enforces include rules at build time
-- **Compile speed**: Changes to `.cc` files don't trigger recompilation of dependents (only re-linking)
-
----
 
 ## Windows Notes (Git Bash)
 
@@ -187,69 +166,6 @@ Alternatively, use **PowerShell** or **CMD** where `//` works as-is.
 
 ---
 
-## Exercises
 
-### Exercise 2.1: Add a new library
-Create a `math-utils` library with a function `int factorial(int n)`. Make `hello-world` depend on it and print `factorial(5)` along with the greeting.
-
-<details>
-<summary>Hint</summary>
-
-Create `main/math-utils.h`:
-```cpp
-#ifndef MAIN_MATH_UTILS_H_
-#define MAIN_MATH_UTILS_H_
-
-int factorial(int n);
-
-#endif
-```
-
-Create `main/math-utils.cc`:
-```cpp
-#include "math-utils.h"
-
-int factorial(int n) {
-    if (n <= 1) return 1;
-    return n * factorial(n - 1);
-}
-```
-
-Add to `main/BUILD`:
-```python
-cc_library(
-    name = "math-utils",
-    srcs = ["math-utils.cc"],
-    hdrs = ["math-utils.h"],
-)
-```
-
-Update the `hello-world` target's deps:
-```python
-    deps = [
-        ":hello-greet",
-        ":math-utils",
-    ],
-```
-</details>
-
-### Exercise 2.2: Break a dependency
-Try removing `:hello-greet` from `deps` and rebuild. What error do you see? This demonstrates Bazel's strict dependency checking.
-
-### Exercise 2.3: Build individual targets
-Build just the library with `bazel build //main:hello-greet`. Verify the `.a` (or `.lib`) file is generated in `bazel-bin/`.
-
----
-
-## Key Takeaways
-
-1. **`cc_library`** creates reusable code modules with clear public APIs
-2. **`hdrs`** = public headers, **`srcs`** = private implementation
-3. **`deps`** declares explicit dependencies between targets
-4. Bazel enforces **dependency correctness** — you can't use undeclared deps
-5. **Incremental builds** — only changed targets are rebuilt
-6. Multiple targets can live in the **same BUILD file** (same package)
-
----
 
 **Previous**: [← Stage 1](../stage1/) | **Next**: [Stage 3 — Multiple Packages →](../stage3/)
