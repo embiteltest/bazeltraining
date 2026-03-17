@@ -166,6 +166,27 @@ This is a critical distinction:
 
 ---
 
+## Windows Notes (Git Bash)
+
+If you are using **Git Bash** on Windows, the `//` prefix in Bazel labels gets converted to a Windows path. To fix this, prefix commands with `MSYS_NO_PATHCONV=1`:
+
+```bash
+# Git Bash — required prefix
+MSYS_NO_PATHCONV=1 bazel build //main:hello-world
+MSYS_NO_PATHCONV=1 bazel build //main:hello-greet
+MSYS_NO_PATHCONV=1 bazel run //main:hello-world
+MSYS_NO_PATHCONV=1 bazel query 'deps(//main:hello-world)'
+```
+
+Alternatively, use **PowerShell** or **CMD** where `//` works as-is.
+
+> **`rules_cc` version warning**: You may see a warning that `rules_cc@0.1.0` was resolved to `rules_cc@0.2.17`. This is harmless — Bazel auto-upgrades to the latest compatible version. To suppress it, update `MODULE.bazel`:
+> ```python
+> bazel_dep(name = "rules_cc", version = "0.2.17")
+> ```
+
+---
+
 ## Exercises
 
 ### Exercise 2.1: Add a new library

@@ -35,48 +35,75 @@ A progressive, hands-on training repository for learning **Bazel** build system 
 
 ### Windows Setup
 
-#### Option A: Using Bazelisk (Recommended)
+#### Step 1: Install Bazel
 
-[Bazelisk](https://github.com/bazelbuild/bazelisk) is a launcher for Bazel that automatically downloads the right version.
+**Option A: Direct Download (Quickest)**
+
+1. Download the Bazel binary directly from GitHub Releases:
+   **[Download bazel-7.6.1-windows-x86_64.exe](https://github.com/bazelbuild/bazel/releases/latest)**
+   (Go to the latest release → Assets → download `bazel-<version>-windows-x86_64.exe`)
+2. Rename the downloaded file to `bazel.exe`
+3. Move it to a directory in your PATH (e.g., `C:\bazel\`)
+4. Add that directory to your system PATH if not already there
+
+**Option B: Using Bazelisk (Recommended for version management)**
+
+[Bazelisk](https://github.com/bazelbuild/bazelisk) is a launcher that automatically downloads the right Bazel version.
 
 ```powershell
-# 1. Install Chocolatey (if not already installed)
-# Open PowerShell as Administrator:
+# Install Chocolatey (if not already installed) — run PowerShell as Administrator:
 Set-ExecutionPolicy Bypass -Scope Process -Force
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
 iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
-# 2. Install Bazelisk (manages Bazel versions automatically)
+# Install Bazelisk
 choco install bazelisk -y
-
-# 3. Install MSYS2 (provides Unix tools needed by Bazel)
-choco install msys2 -y
-
-# 4. Install Visual Studio Build Tools 2022 (C++ compiler)
-choco install visualstudio2022buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools" -y
 ```
 
-#### Option B: Using Scoop
+**Option C: Using Scoop**
 
 ```powershell
-# Install Scoop
 irm get.scoop.sh | iex
-
-# Install Bazelisk and GCC
 scoop install bazelisk
-scoop install gcc
 ```
 
-#### Windows Environment Variables
+#### Step 2: Install MSYS2 (Unix tools required by Bazel)
 
-Add the following to your system PATH:
-```
-C:\tools\msys64\usr\bin
-```
+1. Download MSYS2 installer from **[https://www.msys2.org/](https://www.msys2.org/)**
+2. Run the installer and install to the default location (`C:\msys64`)
+3. After installation, add MSYS2 to your PATH and set `BAZEL_SH`:
 
-Set the following environment variable:
 ```powershell
-[Environment]::SetEnvironmentVariable("BAZEL_SH", "C:\tools\msys64\usr\bin\bash.exe", "User")
+# Run in PowerShell as Administrator:
+
+# Add MSYS2 to system PATH
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";C:\msys64\usr\bin", "Machine")
+
+# Tell Bazel where to find bash
+[Environment]::SetEnvironmentVariable("BAZEL_SH", "C:\msys64\usr\bin\bash.exe", "User")
+```
+
+> **Note**: Restart your terminal after setting environment variables.
+
+#### Step 3: Install Visual Studio Build Tools 2022 (C++ Compiler)
+
+If you already have Visual Studio installed, launch the VS Installer to add the **C++ Build Tools** workload:
+
+```powershell
+# Run in PowerShell as Administrator:
+Start-Process "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vs_installer.exe"
+```
+
+In the VS Installer:
+1. Click **Modify** on your Visual Studio 2022 installation
+2. Check **"Desktop development with C++"** workload
+3. Click **Modify** to install
+
+If you don't have Visual Studio at all, install Build Tools via Chocolatey:
+
+```powershell
+# Run in PowerShell as Administrator:
+choco install visualstudio2022buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools" -y
 ```
 
 ### Linux Setup
